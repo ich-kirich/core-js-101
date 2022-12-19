@@ -231,8 +231,12 @@ function getRectangleString(width, height) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const input = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const output = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+  const searchItem = (x) => input.indexOf(x);
+  const translate = (x) => (searchItem(x) > -1 ? output[searchItem(x)] : x);
+  return str.split('').map(translate).join('');
 }
 
 /**
@@ -248,8 +252,8 @@ function encodeToRot13(/* str */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  return typeof value === 'string' || value instanceof String;
 }
 
 
@@ -277,8 +281,13 @@ function isString(/* value */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const valueCard = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+  const suitCard = ['♣', '♦', '♥', '♠'];
+  if (value.length > 2) {
+    return suitCard.indexOf(value[value.length - 1]) * 13 + valueCard.indexOf(value[0] + value[1]);
+  }
+  return suitCard.indexOf(value[value.length - 1]) * 13 + valueCard.indexOf(value[0]);
 }
 
 
