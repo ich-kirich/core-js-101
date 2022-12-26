@@ -410,8 +410,15 @@ function getFalsyValuesCount(arr) {
  *    [ null, undefined, null ], null => 2
  *    [ true, 0, 1, 'true' ], true => 1
  */
-function findAllOccurrences(/* arr, item */) {
-  throw new Error('Not implemented');
+function findAllOccurrences(arr, item) {
+  let res = 0;
+  arr.map((n) => {
+    if (n === item) {
+      res += 1;
+    }
+    return res;
+  });
+  return res;
 }
 
 /**
@@ -425,8 +432,8 @@ function findAllOccurrences(/* arr, item */) {
  *    [1, 2, 3, 4, 5]                   => '1,2,3,4,5'
  *    ['rock', 'paper', 'scissors']     => 'rock,paper,scissors'
  */
-function toStringList(/* arr */) {
-  throw new Error('Not implemented');
+function toStringList(arr) {
+  return arr.toString();
 }
 
 
@@ -456,8 +463,14 @@ function toStringList(/* arr */) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  *    ]
  */
-function sortCitiesArray(/* arr */) {
-  throw new Error('Not implemented');
+function sortCitiesArray(arr) {
+  return arr.sort((i, j) => {
+    if (i.country > j.country) return 1;
+    if (i.country < j.country) return -1;
+    if (i.city < j.city) return -1;
+    if (i.city > j.city) return 1;
+    return 0;
+  });
 }
 
 /**
@@ -478,8 +491,18 @@ function sortCitiesArray(/* arr */) {
  *           [0,0,0,1,0],
  *           [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  let matr = new Array(n);
+  let i = 0;
+  matr.fill(0);
+  matr = matr.map(() => {
+    const stroka = new Array(n);
+    stroka.fill(0);
+    stroka[i] = 1;
+    i += 1;
+    return stroka;
+  });
+  return matr;
 }
 
 /**
@@ -495,8 +518,8 @@ function getIdentityMatrix(/* n */) {
  *     0, 100 => [ 0, 1, 2, ..., 100 ]
  *     3, 3   => [ 3 ]
  */
-function getIntervalArray(/* start, end */) {
-  throw new Error('Not implemented');
+function getIntervalArray(start, end) {
+  return Array(end - start + 1).fill().map((temp, i) => start + i);
 }
 
 /**
@@ -510,8 +533,8 @@ function getIntervalArray(/* start, end */) {
  *   [ 'a', 'a', 'a', 'a' ]  => [ 'a' ]
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
-function distinct(/* arr */) {
-  throw new Error('Not implemented');
+function distinct(arr) {
+  return arr.filter((i, j) => arr.indexOf(i) === j);
 }
 
 /**
