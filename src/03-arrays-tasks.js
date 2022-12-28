@@ -567,8 +567,17 @@ function distinct(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  const result = new Map();
+  array.filter((i) => {
+    if (!result.has(keySelector(i))) {
+      let vl = array.filter((j) => keySelector(i) === keySelector(j));
+      vl = vl.map((n) => valueSelector(n));
+      result.set(keySelector(i), vl);
+    }
+    return result;
+  });
+  return result;
 }
 
 
@@ -585,8 +594,8 @@ function group(/* array, keySelector, valueSelector */) {
  *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
  *   ['one','two','three'], (x) => x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
-  throw new Error('Not implemented');
+function selectMany(arr, childrenSelector) {
+  return [].concat(...arr.map(childrenSelector));
 }
 
 
@@ -602,8 +611,14 @@ function selectMany(/* arr, childrenSelector */) {
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  throw new Error('Not implemented');
+function getElementByIndexes(arr, indexes) {
+  let arrClone = [].concat(...arr);
+  arrClone = [].concat(...arrClone);
+  const sumElem = indexes.reduce(
+    (first, second) => first + second,
+  );
+  const res = arrClone[sumElem];
+  return res;
 }
 
 
@@ -625,8 +640,19 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  const medLength = Math.floor(arr.length / 2);
+  let firstHalf = [];
+  let secondHalf = [];
+  if (arr.length % 2 === 0) {
+    secondHalf = arr.slice(medLength);
+    firstHalf = arr.slice(0, medLength);
+  } else {
+    secondHalf = arr.slice(medLength + 1);
+    secondHalf.push(arr[medLength]);
+    firstHalf = arr.slice(0, medLength);
+  }
+  return secondHalf.concat(firstHalf);
 }
 
 
